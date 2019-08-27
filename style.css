@@ -1,0 +1,45 @@
+#clock {
+    text-align: center;
+    position: relative;
+    display: inline-block;
+}
+
+#clock img {
+    width: 500px;
+}
+
+#hands,
+#clock:after,
+#clock:before {
+    content: "";
+    height: 200px;
+    position: absolute;
+    bottom: 50%;
+    left: 49%;
+    border: 5px solid #000;
+    border-radius: 50%;
+    animation: rotate 5s linear infinite;
+}
+
+#clock:after {
+    height: 170px;
+    border-color: red;
+    animation-duration: 3600s;
+}
+
+#clock:before {
+    height: 130px;
+    border-color: green;
+    animation-duration: 86400s;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0);
+        transform-origin: bottom;
+    }
+    100% {
+        transform: rotate(360deg);
+        transform-origin: bottom;
+    }
+}
