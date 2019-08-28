@@ -2,12 +2,14 @@ let getTime = () => {
   let getTimeNow = new Date();
   //   return `${getTime.getHours()}:${getTime.getMinutes()}:${getTime.getSeconds()}`;
   return {
-    hour: getTimeNow.getHours(),
+    hour:
+      getTimeNow.getHours() > 12
+        ? getTimeNow.getHours() - 12
+        : getTimeNow.getHours(),
     minutes: getTimeNow.getMinutes(),
     seconds: getTimeNow.getSeconds()
   };
 };
-// console.log('sadas')
 
 // setInterval(() => {
 //   document.getElementById("time").innerHTML = calculateTime().toString();
@@ -25,36 +27,36 @@ let [hourDeg, minDeg, secDeg] = [
   calculateTime(getCurrentTime.seconds, 60)
 ];
 
-
-
+let handSelector = selector => {
+  return document.getElementById(selector);
+};
 
 setInterval(() => {
-  // console.log(getTime().seconds, secDeg);
-  if(getTime().seconds === 59 ) {
+  if (getTime().seconds === 0) {
     secDeg = 0;
-    rotateHand();
-    // console.log(secDeg);
+    rotateHand(handSelector("second-hand"), secDeg, 60000);
   }
-}, 1000); 
+}, 1000);
 
-rotateHand();
+rotateHand(handSelector("second-hand"), secDeg, 60000);
+rotateHand(handSelector("minute-hand"), minDeg, 60000 * 60);
+rotateHand(handSelector("hour-hand"), hourDeg, 60000 * 60 * 12);
 
-function rotateHand(){
-  
-document.getElementById("hands").animate(
-  [
+function rotateHand(selector, selectorDeg, duration) {
+  selector.animate(
+    [
+      {
+        transform: "rotate(" + selectorDeg + "deg)",
+        transformOrigin: "bottom"
+      },
+      {
+        transform: "rotate(360deg)",
+        transformOrigin: "bottom"
+      }
+    ],
     {
-      transform: 'rotate('+secDeg+'deg)',
-      transformOrigin: 'bottom',
-    },
-    {
-      transform: 'rotate(360deg)',
-      transformOrigin: 'bottom',
+      duration: duration,
+      iterations: Infinity
     }
-  ],
-  {
-    duration: 60000,
-    iterations : Infinity
-  }
-);
+  );
 }
