@@ -8,9 +8,10 @@
     width: 500px;
 }
 
-#hands,
-#clock:after,
-#clock:before {
+#hands
+/* #clock:after,
+#clock:before  */
+{
     content: "";
     height: 200px;
     position: absolute;
@@ -18,10 +19,10 @@
     left: 49%;
     border: 5px solid #000;
     border-radius: 50%;
-    animation: rotate 5s linear infinite;
+    animation: rotate 60s linear infinite;
 }
 
-#clock:after {
+/* #clock:after {
     height: 170px;
     border-color: red;
     animation-duration: 3600s;
@@ -31,9 +32,9 @@
     height: 130px;
     border-color: green;
     animation-duration: 86400s;
-}
+} */
 
-@keyframes rotate {
+/* @keyframes rotate {
     0% {
         transform: rotate(0);
         transform-origin: bottom;
@@ -42,4 +43,4 @@
         transform: rotate(360deg);
         transform-origin: bottom;
     }
-}
+} */
