@@ -33,6 +33,10 @@
     animation-duration: 86400s;
 }
 
+body {
+    text-align: center;
+}
+
 /* @keyframes rotate {
     0% {
         transform: rotate(0);

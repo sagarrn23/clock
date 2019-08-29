@@ -11,9 +11,9 @@ let getTime = () => {
   };
 };
 
-// setInterval(() => {
-//   document.getElementById("time").innerHTML = calculateTime().toString();
-// }, 1000);
+setInterval(() => {
+  document.getElementById("time").innerHTML = `<h1>${getTime().hour}:${getTime().minutes}:${getTime().seconds}</h1>`;
+}, 1000);
 
 function calculateTime(currentTime, hand) {
   return (360 / hand) * currentTime;
@@ -31,16 +31,35 @@ let handSelector = selector => {
   return document.getElementById(selector);
 };
 
-setInterval(() => {
-  if (getTime().seconds === 0) {
-    secDeg = 0;
-    rotateHand(handSelector("second-hand"), secDeg, 60000);
-  }
-}, 1000);
+function checkIfTimeZero(currTime, interval, selector, handDeg, duration) {
+  setInterval(() => {
+    console.log(getTime()[currTime]);
+    if (getTime()[currTime] === 0) {
+      handDeg = 0;
+      rotateHand(handSelector(selector), handDeg, duration);
+    }
+  }, interval);
+}
 
-rotateHand(handSelector("second-hand"), secDeg, 60000);
-rotateHand(handSelector("minute-hand"), minDeg, 60000 * 60);
-rotateHand(handSelector("hour-hand"), hourDeg, 60000 * 60 * 12);
+checkIfTimeZero('seconds', 1000, 'second-hand', secDeg, 60000);
+checkIfTimeZero('minutes', 1000*60, 'minute-hand', minDeg, 60000*60);
+checkIfTimeZero('hour', 1000*60*60, 'hour-hand', hourDeg, 60000*60*12);
+
+rotateHand(
+  handSelector("second-hand"),
+  secDeg,
+  (60000) - (getCurrentTime.seconds * 1000)
+);
+rotateHand(
+  handSelector("minute-hand"),
+  minDeg,
+  (60000 * 60) - (getCurrentTime.minutes * 60 * 1000)
+);
+rotateHand(
+  handSelector("hour-hand"),
+  hourDeg,
+  (60000 * 60 * 12) - (getCurrentTime.hour * 60 * 60 * 1000)
+);
 
 function rotateHand(selector, selectorDeg, duration) {
   selector.animate(
