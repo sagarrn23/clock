@@ -1,6 +1,5 @@
 let getTime = () => {
   let getTimeNow = new Date();
-  //   return `${getTime.getHours()}:${getTime.getMinutes()}:${getTime.getSeconds()}`;
   return {
     hour:
       getTimeNow.getHours() > 12
